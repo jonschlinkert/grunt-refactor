@@ -1,0 +1,42 @@
+{
+  "name": "grunt-refactor",
+  "description": "Grunt tasks for refactoring code.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/grunt-refactor",
+  "author": {
+    "name": "Erick Ruiz de Chavez",
+    "email": "erickrdch@gmail.com",
+    "url": "http://erickrdch.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/grunt-refactor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/grunt-refactor/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jonschlinkert/grunt-refactor/blob/master/LICENSE-MIT"
+    }
+  ],
+  "peerDependencies": {
+    "assemble": "~0.3.1",
+    "assemble-less": "~0.4.0",
+    "grunt": "~0.4.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-jshint": "~0.3.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-lib-contrib": "*"
+  },
+  "keywords": [
+    "gruntplugin",
+    "string",
+    "replace",
+    "regex"
+  ]
+}

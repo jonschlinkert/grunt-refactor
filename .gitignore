@@ -1,0 +1,4 @@
+tmp/
+*.sublime-*
+node_modules/
+test/result/
