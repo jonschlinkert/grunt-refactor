@@ -14,7 +14,6 @@ Just download the project and then run `npm install` to install all of the proje
 * [assemble-less](http://github.com/assemble/assemble-less): "Compile LESS to CSS, with options for creating 'bundles', individual components, themes or whatever makes you happy". This task is used
 
 
-
 ### Did you say "it refactors SASS to LESS"? How well does it work?
 
 Oh ho, hoho scoodlie do, I am sooo glad you asked that question! Not really, but you know what, _yes_ I did say "refactor", and this project does a freakin' amazing job of almost doing a good job. If I had to guess, which I hate doing btw, it gets you somewhere between 97-104% of the way there.
@@ -37,7 +36,6 @@ In a nutshell, here is how it works:
   replacement: "transition(e('$2$3')"
 }
 ```
-
 
 #### What works?
 
@@ -114,63 +112,18 @@ replace: {
   }
 }
 ```
+_Note: If the pattern is a string, only the first occurrence will be replaced, as stated on [String.prototype.replace](http://www.ecma-international.org/ecma-262/5.1/#sec-15.5.4.11)._
 
-###### Note
-
-If the pattern is a string, only the first occurrence will be replaced, as stated on [String.prototype.replace](http://www.ecma-international.org/ecma-262/5.1/#sec-15.5.4.11).
-
-#### Config Example
-
-``` javascript
-replace: {
-  dist: {
-    files: {
-      "path/to/directory/": "path/to/source/*", // includes files in dir
-      "path/to/directory/": "path/to/source/**", // includes files in dir and subdirs
-      "path/to/project-<%= pkg.version %>/": "path/to/source/**", // variables in destination
-      "path/to/directory/": ["path/to/sources/*.js", "path/to/more/*.js"], // include JS files in two diff dirs
-      "path/to/filename.ext": "path/to/source.ext"
-    },
-    options: {
-      replacements: [{
-        pattern: /\/(asdf|qwer)\//ig,
-        replacement: "'$1'"
-      }, {
-        pattern: ",",
-        replacement: ";"
-      }]
-    }
-  }
-}
-```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
-## Release History
-0.2.2
-  - Added support to be used as npm module. Contributed by [thanpolas](https://github.com/thanpolas).
 
-0.2.1
-  - Updated dependencies for Grunt 0.4.0.
+## Credit
+Special thanks to [Erick Ruiz de Chavez](https://github.com/erickrdch) for creating [grunt-string-replace](https://github.com/erickrdch/grunt-replace). This isn't a fork of that project, because I'm using other tasks as well, but it might as well be because this project wouldn't exist without it. Please visit [grunt-string-replace](https://github.com/erickrdch/grunt-replace) and star it!
 
-0.2.0
-  - Added Support for grunt 0.4.0. This version will not support grunt 0.3.x, if you need to use it then `npm install grunt-string-replace@0.1`.
-
-0.1.1-1
-  - Added Clean task (and dev dependency) to remove test generated file before testing.
-  - Added Sublime Text project files and test generated file to npm ignore list.
-
-0.1.1
-  - Fix dependency with grunt-lib-contrib.
-
-0.1.0-1
-  - Fixed a typo on package.json description.
-  - Added a note about string pattern behavior.
-
-0.1.0
-  - Initial release.
 
 ## License
-Copyright (c) 2012 Erick Ruiz de Chavez.
+Copyright (c) 2013 Jon Schlinkert, and the authors of tasks utilized herein.
+
 Licensed under the MIT license.
