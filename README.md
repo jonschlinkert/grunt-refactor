@@ -1,17 +1,17 @@
-# grunt-refactor
+# [grunt-refactor](http://github.com/jonschlinkert/grunt-refactor) [![Build Status](https://travis-ci.org/jonschlinkert/grunt-refactor.png)](https://travis-ci.org/jonschlinkert/grunt-refactor)
 
 > Grunt tasks for refactoring code
 
 As a proof-of-concept, the project is using (mostly) out-of-the-box Grunt tasks for converting SASS/SCSS to LESS and CSS to LESS. But as a broader goal, the project is focused on finding relatively simple ways to refactor massive amounts of code.
 
-Just download the project and then run `npm install` to install all of the project's dependencies.  After everything is installed, run `grunt`, and you will see **an official _shload_ of SASS/SCSS files get refactored to LESS**. 
+Just download the project and then run `npm install` to install all of the project's dependencies.  After everything is installed, run `grunt`, and you will see **an official _shload_ of SASS/SCSS files get refactored to LESS**.
 
 
 ### Tasks used in the project
 
 * [grunt-rename](https://github.com/doowb/grunt-rename): enables file renaming based on patterns.
 * [grunt-string-replace](https://github.com/erickrdch/grunt-replace) [![Build Status](https://travis-ci.org/erickrdch/grunt-string-replace.png?branch=0.2.0rc1)](https://travis-ci.org/erickrdch/grunt-string-replace): "replaces strings on files by using string or regex patterns. Attempts to be a [String.prototype.replace](http://www.ecma-international.org/ecma-262/5.1/#sec-15.5.4.11) adapter task for your grunt project".
-* [assemble-less](http://github.com/assemble/assemble-less): "Compile LESS to CSS, with options for creating 'bundles', individual components, themes or whatever makes you happy". This task is used 
+* [assemble-less](http://github.com/assemble/assemble-less): "Compile LESS to CSS, with options for creating 'bundles', individual components, themes or whatever makes you happy". This task is used
 
 
 
@@ -22,8 +22,8 @@ Oh ho, hoho scoodlie do, I am sooo glad you asked that question! Not really, but
 In a nutshell, here is how it works:
 
 1. The `rename` task:
-    * grabs a bunch of `.scss` files from each defined `src` 
-    * changes the file extensions to `.less` 
+    * grabs a bunch of `.scss` files from each defined `src`
+    * changes the file extensions to `.less`
     * removes the silly underscores from file names. Lol, underscores.
     * does some other really cool things you'll have to learn for yourself (this is just a way of buying me time until I can convince the author of that plugin to add more cool things)
 2. The `replace` task then, well, replaces... things. But if you insist I get technical, the task:
@@ -44,7 +44,7 @@ In a nutshell, here is how it works:
 A bunch, actually. For instance:
 
 * Variables: from: `$`, to: `@`
-* Mixins: from: `@mixin` and `@include`, to: `.` 
+* Mixins: from: `@mixin` and `@include`, to: `.`
 * Import statements: cleaned up, but see below.
 * Remove all SASS `!default` declarations
 * Replace `adjust-hue` with `spin`
@@ -55,14 +55,14 @@ In the **./test/** folder you will find files from [bootstrap-sass](https://gith
 
 #### What doesn't work?
 
-Let's just say, enough to get you fired if you're stuuu..... adventurous enough to use this on anything that pays your bills.  
+Let's just say, enough to get you fired if you're stuuu..... adventurous enough to use this on anything that pays your bills.
 
 * Import statements: LESS cannot do comma separated lists of values, as SASS does. But this is easy to do if you're refactoring manually.
 * `@if`, `@else` and other magic that LESS doesn't do. These will have to be addressed by your actual brain, personally. (or impersonally, that's your call)
 * More described in the code comments.
 
 
-## [grunt-string-replace](https://github.com/erickrdch/grunt-replace) 
+## [grunt-string-replace](https://github.com/erickrdch/grunt-replace)
 
 To install this grunt plugin on your project simply do: `npm install grunt-string-replace`
 
@@ -105,7 +105,7 @@ replace: {
       {
         pattern: /\/(asdf|qwer)\//ig,
         replacement: "'$1'"
-      }, 
+      },
       {
         pattern: ",",
         replacement: ";"
