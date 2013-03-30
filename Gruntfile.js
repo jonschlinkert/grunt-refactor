@@ -23,8 +23,8 @@ module.exports = function(grunt) {
       },
 
       // boostrap-sass
-      // 
-      // The "replace" and "rename" tasks get 
+      //
+      // The "replace" and "rename" tasks get
       // 90% of the way there. The grid in particular just won't
       // convert cleanly. But variables, mixins, even some browser
       // hacks are converted.
@@ -42,17 +42,17 @@ module.exports = function(grunt) {
       },
 
 
-      // ZURB Foundation. 
-      // 
-      // As with sass-bootstrap, the "replace" and "rename" tasks get 
+      // ZURB Foundation.
+      //
+      // As with sass-bootstrap, the "replace" and "rename" tasks get
       // 90% of the way there. You will need to make decisions with
-      // if/else statements, and comment out or change other 
+      // if/else statements, and comment out or change other
       // code that doesn't convert.
       foundation: {
         options: {
           paths: [
             'test/result/foundation/core',
-            'test/result/foundation/docs', 
+            'test/result/foundation/docs',
             'test/result/foundation/templates'
           ]
         },
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         options: {
           paths: [
             'test/result/foundation/core',
-            'test/result/foundation/docs', 
+            'test/result/foundation/docs',
             'test/result/foundation/templates'
           ]
         },
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         options: {
           paths: [
             'test/result/foundation/core',
-            'test/result/foundation/docs', 
+            'test/result/foundation/docs',
             'test/result/foundation/templates'
           ]
         },
@@ -85,11 +85,11 @@ module.exports = function(grunt) {
 
 
     replace: {
-      sass: {
+      sass_with_less: {
         files: [
           {
             // Test Sample
-            expand: true, 
+            expand: true,
             flatten: true,
             cwd: 'test/compass/',
             src: ['*.scss'],
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
           },
           {
             // bootstrap-sass
-            expand: true, 
+            expand: true,
             flatten: true,
             cwd: 'test/bootstrap-sass/vendor/assets/stylesheets/bootstrap',
             src: ['**/*.scss'],
@@ -106,8 +106,8 @@ module.exports = function(grunt) {
             ext: '.less'
           },
           {
-            // Foundation 
-            expand: true, 
+            // Foundation
+            expand: true,
             flatten: true,
             cwd: 'test/foundation/scss',
             src: ['**/*.scss'],
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
           },
           {
             // Foundation Docs
-            expand: true, 
+            expand: true,
             flatten: true,
             cwd: 'test/foundation/docs/css',
             src: ['**/*.scss'],
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
           },
           {
             // Foundation Templates
-            expand: true, 
+            expand: true,
             flatten: true,
             cwd: 'test/foundation/templates/project/scss',
             src: ['**/*.scss'],
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
             // The grid won't work after you convert, because SASS doesn't
             // have the ability to do the same things as LESS, so there
             // are workarounds that won't convert back to LESS.
-            // 
+            //
             // And clearly there is no reason to use a verion of Bootstrap
             // that was converted from LESS to SASS and back to LESS.
             {
@@ -251,7 +251,7 @@ module.exports = function(grunt) {
             },
             {
               // Remove "boostrap/" from path in @import statements, since we
-              // don't need them with LESS. (see the "paths" option in the 
+              // don't need them with LESS. (see the "paths" option in the
               // 'less' task above)
               pattern: /(bootstrap\/)(.*)(";)/g,
               replacement: '$2.less";'
@@ -274,7 +274,7 @@ module.exports = function(grunt) {
             // Transitions and box-shadows are common properties with comma-
             // separated values. Add other properties with the same pattern
             // if you require them.
-            // 
+            //
             // Less requires that comma separated values
             // be wrapped like this: ~"comma, separated, values".
             // The following regex will the values of ALL transitions and
@@ -293,7 +293,7 @@ module.exports = function(grunt) {
 
             // URL/paths
             // =================================
-            
+
             {
               // Interpolated variables in urls
               pattern: /(url\(@)(.*)(?=\);)/g,
@@ -335,7 +335,7 @@ module.exports = function(grunt) {
             //   replacement: ''
             // },
             {
-              // Can't really fix silly font bs, but try to turn "font: {" 
+              // Can't really fix silly font bs, but try to turn "font: {"
               // into a mixin anyway: .font() {}
               pattern: /\sfont:\s*{/gim,
               replacement: '  .font () {'
@@ -359,7 +359,7 @@ module.exports = function(grunt) {
               // same...
               pattern: /\ssize:\s*/gim,
               replacement: '  font-size: '
-            }, 
+            },
             {
               // Try to turn "min: {" into a mixin just to make it pass
               pattern: /\smin:\s*{/gim,
@@ -367,15 +367,15 @@ module.exports = function(grunt) {
             },
 
             // {
-            //   // Comment out "if" statments 
+            //   // Comment out "if" statments
             //   // This DOESN"T WORK YET!!
             //   pattern: /([^@if]  +)/gim,
             //   replacement: '//  '
-            // } 
+            // }
 
 
             // A few "one-off" patterns and some clean up
-            // just for convenience 
+            // just for convenience
             // =============================================
             {
               pattern: /(~"none")/g,
@@ -390,21 +390,24 @@ module.exports = function(grunt) {
               replacement: '&'
             },
 
-            // Microsoft, oh microsoft. 
+            // Microsoft, oh microsoft.
             {
               pattern: /progid:DXImageTransform.Microsoft.gradient\(enabled=false\)/g,
               replacement: "e\(%\(\"progid:DXImageTransform.Microsoft.gradient\(enabled = false\)\"))",
             },
             // {
             //   pattern: /(\\9)/g,
-            //   replacement: ' e(\"\\9\")'             
-            // },          
+            //   replacement: ' e(\"\\9\")'
+            // },
             {
               pattern: /alpha\(opacity=@opacity\)/g,
               replacement: '~"alpha(opacity=@{opacity})"'
-            }            
+            }
           ]
         }
+      },
+      liquid_with_handlebars: {
+
       },
       test: {
         files: {
@@ -432,7 +435,7 @@ module.exports = function(grunt) {
     },
 
     rename: {
-      views: {
+      sass_to_less: {
         options: {
           // Strip preceding underscores from '.scss' filenames
           // since LESS doesn't require them.
@@ -468,13 +471,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'clean',
-    'replace:sass',
+    'replace:sass_with_less',
     'rename'
   ]);
 
   grunt.registerTask('test', [
     'clean',
-    'replace:sass',
+    'replace:sass_with_less',
     'rename',
     'less:test'
   ]);

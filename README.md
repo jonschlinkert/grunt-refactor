@@ -49,8 +49,9 @@ A bunch, actually. For instance:
 * Remove all SASS `!default` declarations
 * Replace `adjust-hue` with `spin`
 * Replace `fade-in` with `fadein`
-* A ton of other stuff I already wrote in the Gruntfile...
+* A ton of other "one-off" stuff commented in the Gruntfile...
 
+In the **./test/** folder you will find files from [bootstrap-sass](https://github.com/thomas-mcdonald/bootstrap-sass) and [foundation](https://github.com/zurb/foundation). I converted the `.scss` from both libraries to LESS to help me stay focused on implementing practical patterns. I was actually pleasantly surprised at how close I came to converting all of the Bootstrap `.scss` files back to LESS. Try doing a diff between the converted sass files and "native" bootstrap less files (v2.3.1) - it's not feature complete, but it saves a lot of time.
 
 #### What doesn't work?
 
