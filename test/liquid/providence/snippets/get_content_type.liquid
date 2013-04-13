@@ -1,0 +1,12 @@
+{% if item.url %}
+	{% if item.url contains '/products' %}
+		{% assign content_type = 'product' %}
+		
+	{% elsif item.url contains '/blogs' %}
+		{% assign content_type = 'article' %}
+		
+	{% elsif item.url contains '/pages' %}
+		{% assign content_type = 'page' %}
+	
+	{% endif %}
+{% endif %}

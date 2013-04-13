@@ -6,11 +6,24 @@
  * Licensed under the MIT license.
  */
 
+
 module.exports = function(grunt) {
+
+  var regex = grunt.file.readYAML('regex.yml');
+
+  // Captures the `@import` path and media condition
+  var Import       = /\@import\s*(?:url\()?\s*["']([^'"]*)['"]\s*\)?\s*(.*?);/
+  var ImportLodash = /\@import "_ */g
+  // Global version of `Import`
+  var ImportGlobal = new RegExp( Import.toString().slice( 1, Import.toString().length - 1 ), [ 'g' ] );
+
 
   'use strict';
 
   grunt.initConfig({
+
+    Import: Import,
+    regex: regex,
 
     // Test results of converstion from SASS to LESS
     less: {
@@ -18,16 +31,14 @@ module.exports = function(grunt) {
         options: {
           paths: 'test/result/sample/less'
         },
-        src:  'test/result/sample/less/*.less',
-        dest: 'test/result/sample/result.css'
+        src:  'test/result/compass/less/*.less',
+        dest: 'test/result/compass/result.css'
       },
 
       // boostrap-sass
       //
-      // The "replace" and "rename" tasks get
-      // 90% of the way there. The grid in particular just won't
-      // convert cleanly. But variables, mixins, even some browser
-      // hacks are converted.
+      // The "replace" and "rename" tasks get 90% of the way there. The grid in particular just won't 
+      // convert cleanly. But variables, mixins, even some browser hacks are converted.
       bootstrap: {
         options: {
           concat: false,
@@ -41,13 +52,10 @@ module.exports = function(grunt) {
         dest: 'test/result/bootstrap/css'
       },
 
-
       // ZURB Foundation.
       //
-      // As with sass-bootstrap, the "replace" and "rename" tasks get
-      // 90% of the way there. You will need to make decisions with
-      // if/else statements, and comment out or change other
-      // code that doesn't convert.
+      // As with sass-bootstrap, the "replace" and "rename" tasks get 90% of the way there. You will 
+      // need to make decisions with if/else statements, and comment out or change other code that doesn't convert.
       foundation: {
         options: {
           paths: [
@@ -93,7 +101,7 @@ module.exports = function(grunt) {
             flatten: true,
             cwd: 'test/compass/',
             src: ['*.scss'],
-            dest: 'test/result/sample/less/',
+            dest: 'test/result/compass/less/',
             ext: '.less'
           },
           {
@@ -246,9 +254,16 @@ module.exports = function(grunt) {
 
             {
               // Remove first underscore in files referenced in @import statements
-              pattern: /\@import "_ */g,
+              pattern: '<%= regex.imports.lodash %>',
               replacement: '@import "'
             },
+
+            // {
+            //   // Convert a list of comma separated @import statements into valid
+            //   // import statements.
+            //   pattern: /(.+)(",|;$)/g,
+            //   replacement: '@import $1";'
+            // },
             {
               // Remove "boostrap/" from path in @import statements, since we
               // don't need them with LESS. (see the "paths" option in the
@@ -406,8 +421,43 @@ module.exports = function(grunt) {
           ]
         }
       },
-      liquid_with_handlebars: {
-
+      liquid: {
+        files: [
+          {
+            // Test Sample
+            expand: true,
+            flatten: true,
+            cwd: 'test/underscore/',
+            src: ['*.tmpl.md'],
+            dest: 'test/result/underscore/',
+            ext: '.md'
+          }
+        ],
+        options: {
+          replacements: [
+            // Replace liquid variables
+            {
+              pattern: /({%=)/g,
+              replacement: '{{'
+            },
+            {
+              pattern: /({% )/g,
+              replacement: '{{'
+            },
+            {
+              pattern: /(%})/g,
+              replacement: '}}'
+            },
+            {
+              pattern: /({% if)/g,
+              replacement: '{{#if'
+            },
+            {
+              pattern: /( \|\| \'\')/g,
+              replacement: ''
+            }
+          ]
+        }
       },
       test: {
         files: {
@@ -472,7 +522,13 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'clean',
     'replace:sass_with_less',
-    'rename'
+    'rename',
+    // 'less:test'
+  ]);
+
+  grunt.registerTask('liquid', [
+    'clean',
+    'replace:liquid'
   ]);
 
   grunt.registerTask('test', [

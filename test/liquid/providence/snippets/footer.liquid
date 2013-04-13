@@ -1,0 +1,73 @@
+{% assign widget_area = 'footer'%}
+
+	{% if settings.footer_columns != "0" %}
+		<!-- Footer -->	
+		<aside id="footer-widgets">
+			<div class="container-fluid">
+				<div class="row-fluid">
+						<h1 class="section-title">Footer</h1>
+						<div class="widgets">
+						{% for i in (1..settings.footer_columns) %}
+							{% assign span_width = 'footer_column_width_0' | append: i %}
+							<div class="span{{ settings[span_width] }}">
+								<div class="inner">
+								{% include 'get_widget' with i | newline_to_br %}						
+								</div>
+							</div>
+						{% endfor %}
+						</div><!-- widgets -->
+				</div>
+			</div><!-- .container -->
+		</aside>
+	{% endif %}
+
+</div><!-- #site-wrap -->
+	
+<footer id="site-footer">
+	<div id="footer-bottom-square" class="visible-desktop"></div>
+	<div id="footer-bottom-circle" class="visible-desktop"></div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			
+			{% include 'nav_mobile_select' %}
+			
+			<div id="fine-print" class="pull-left">						
+
+				<div id="copyright">
+					<span class="date">&copy; {{ 'now' | date: '%Y' }}</span>
+
+					{% if settings.brand_text != "" %}
+						{{ settings.brand_text | link_to: shop.url }}
+					{% else %}
+						{{shop.name | link_to: shop.url }}
+					{% endif %}
+
+					All rights reserved.
+
+					{% if settings.footer_display_currency? %}
+					 <span id="shop-currency-notice">All prices in {{ shop.currency }}.</span>
+					{% endif %}
+				</div>
+
+				<div id="attributions">
+					<span class="shopify">{{ powered_by_link }}.</span>
+
+					{% unless settings.remove_attribution_empyre? %}
+					<span class="empyre">
+						Design by <a href="http://empyrecollective.com" data-target="_blank">Empyre Collective</a>.
+					</span>
+					{% endunless %}
+				</div>
+			</div>
+
+			<div class="pull-right visible-desktop">
+				{% include 'nav_footer' %}
+			</div>
+
+			{% include 'payment_methods' %}
+			
+		</div><!-- .row -->
+	</div><!-- .container -->
+
+</footer>

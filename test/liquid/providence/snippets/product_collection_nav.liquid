@@ -1,0 +1,14 @@
+<div class="clearfix nav-collection">
+	<div class="row-fluid">
+		<div class="span2">
+      {% if collection.previous_product %}
+        <a href="{{ collection.previous_product }}" class="previous_product"><span class="upper">&larr; Previous</span></a>
+      {% endif %}
+		</div>
+    <div class="span2 pull-right tar">
+			{% if collection.next_product %}
+      	<a href="{{ collection.next_product }}" class="next_product"><span class="upper">Next &rarr;</span></a>
+    	{% endif %}
+		</div>
+	</div>
+</div>

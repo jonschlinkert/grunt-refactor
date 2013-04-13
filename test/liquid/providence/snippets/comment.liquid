@@ -1,0 +1,19 @@
+{% include 'variables' %}
+
+<div id="comment-{{comment.id}}" class="hcomment {% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %} clearfix">
+	<div class="image">
+		<img src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=100&amp;d=mm" />
+	</div>
+
+	<div class="com-meta">
+		<cite class="poster vcard tcd">{{ comment.author }}</cite>
+		<a class="url" href="#comment-{{comment.id}}">
+			<span class="date">{{ comment.created_at | date: '%B %d, %Y' }}</span>
+			at <span class="time">{{ comment.created_at | date: '%I:%M%P' }}</span>
+		</a>
+	</div>
+	
+	<div class="description">
+		{{ comment.content }}
+	</div>
+</div>

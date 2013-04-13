@@ -1,0 +1,34 @@
+<div id="nav-footer-wrap">
+  <nav id="nav-footer">
+  <ul class="nav">
+  	{% for link in linklists[settings.footer_nav_primary_list].links %}
+		
+  		{% assign current = false %}
+  		{% if template == 'index' and link.url == '/' %}
+  			{% assign current = true %}
+  		{% elsif collection.url == link.url %}
+  			{% assign current = true %}
+  		{% elsif blog.url == link.url %}
+  			{% assign current = true %}
+  		{% elsif page.url == link.url %}
+  			{% assign current = true %}
+  		{% elsif page_title == link.title %}
+  			{% assign current = true %}
+  		{% elsif template == 'list-collections' and link.url == '/collections' %}
+  			{% assign current = true %}
+  		{% elsif page_title == 'Products' and link.url == '/collections/all' %}
+  			{% assign current = true %}
+  		{% elsif template == 'article' and link.url == article.url %}
+  			{% assign current = true %}
+  		{% endif %}
+	
+  	  <li class="nav-item{% if forloop.first %} first{% endif %}{% if current %} active{% endif %}">
+  			<a href="{{ link.url }}">{{ link.title }}</a>
+  		</li>
+  		{% unless forloop.last %}
+  		<li class="divider">/</li>
+  		{% endunless %}
+  	{% endfor %}
+  </ul>
+  </nav>
+</div>

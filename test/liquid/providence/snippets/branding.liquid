@@ -1,0 +1,14 @@
+<hgroup id="brand">
+		{% if settings.brand_type == 'image' %}
+			{{ 'logo.png' | asset_url | img_tag | link_to: shop.url }}
+		{% elsif settings.brand_text != "" %}
+			<h1>{{ settings.brand_text | link_to: shop.url }}</h1>
+		{% else %}
+			<h1>{{shop.name | link_to: shop.url}}</h1>
+		{% endif %}
+		{% if settings.brand_tagline != "" %}
+			<p id="tagline" class="pull-left">
+				{{settings.brand_tagline}}
+			</p>
+		{% endif %}
+</hgroup>

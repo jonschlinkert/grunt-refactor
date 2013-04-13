@@ -1,0 +1,56 @@
+<div id="comment-form">
+	
+	{% if settings.article_comment_form_title_text %}
+	<h2>{{ settings.article_comment_form_title_text }}</h2>
+	{% endif%}
+
+	{% form article %}
+	
+	{% if form.posted_successfully? and blog.moderated? %}
+		<div class="alert alert-success">Your comment has been submitted and will be posted as soon as it's approved by a moderator.</div>
+	{% elsif form.posted_successfully? %}	
+		<div class="alert alert-success">Thanks for the comment!</div>
+	{% else %}	
+		{% if form.errors %}
+			<div class="alert alert-error">Not all the fields have been filled out correctly!</div>
+		{% endif %}
+	{% endif %}
+	<div class="alert-message error" id="verification-error" style="display:none;"></div>
+	
+	  <fieldset>
+		
+	    <div class="control-group{% if form.errors contains 'author' %} error{% endif %}">
+	      <label class="control-label" for="comment_author">Name</label>
+	      <div class="controls">
+	        <input type="text" class="input-xlarge" id="comment_author" name="comment[author]" value="{{ form.author }}">
+					<span class="help-inline">Name*</span>
+	      </div>
+	    </div>
+	
+	    <div class="control-group{% if form.errors contains 'email' %} error{% endif %}">
+	      <label class="control-label" for="comment_email">Email</label>
+	      <div class="controls">
+	        <input type="text" class="input-xlarge" id="comment_email" name="comment[email]" value="{{ form.email }}">
+					<span class="help-inline">Email* (Gravatar supported)</span>
+	      </div>
+	    </div>
+	
+			<div class="control-group{% if form.errors contains 'body' %} error{% endif %}">
+				<label class="control-label" for="comment_body">Comment</label>
+				<div class="controls">
+					<textarea class="span12" id="comment_body" name="comment[body]" rows="5">{{ form.body }}</textarea>
+				</div>
+			</div>
+			
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Post comment</button>
+			</div>
+
+	  </fieldset>
+	{% endform %}
+
+
+	{% if blog.moderated? %}
+		<span class="light">Note: Comments must be approved before being displayed.</span>
+	{% endif %}
+</div>

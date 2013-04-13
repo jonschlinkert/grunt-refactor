@@ -1,0 +1,55 @@
+<div class="nav-mobile-select-wrap visible-phone visible-tablet">
+  <nav class="nav-mobile-select">
+			
+			<select>
+		
+			  	{% for link in linklists[settings.footer_nav_primary_list].links %}
+
+			  		{% assign current = false %}
+			  		{% if template == 'index' and link.url == '/' %}
+			  			{% assign current = true %}
+			  		{% elsif collection.url == link.url %}
+			  			{% assign current = true %}
+			  		{% elsif blog.url == link.url %}
+			  			{% assign current = true %}
+			  		{% elsif page.url == link.url %}
+			  			{% assign current = true %}
+			  		{% elsif page_title == link.title %}
+			  			{% assign current = true %}
+			  		{% elsif template == 'list-collections' and link.url == '/collections' %}
+			  			{% assign current = true %}
+			  		{% elsif page_title == 'Products' and link.url == '/collections/all' %}
+			  			{% assign current = true %}
+			  		{% elsif template == 'article' and link.url == article.url %}
+			  			{% assign current = true %}
+			  		{% endif %}
+
+			  		{% capture child_list_handle %}{{ link.title | handle }}{% endcapture %}
+		
+			  		{% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+			  			<optgroup label="{{ link.title }}">
+								{% for l in linklists[child_list_handle].links %}
+		  		      	<option value="{{ l.url }}" {% if current %}selected="selected"{% endif %}>{{ l.title }}</option>
+		  		      {% endfor %}
+			  			</optgroup>
+						{% else %}
+							<option value="{{ link.url }}" {% if current %}selected="selected"{% endif %}>{{ link.title }}</option>
+			  		{% endif %}
+
+			    {% endfor %}
+	
+					{% if shop.customer_accounts_enabled %}
+					  {% if customer %}
+							<option value="/account">My Account</option>
+							<option value="/accoung/logout">Sign-out</option>
+						{% else %}
+							<option value="/account">My Account</option>
+					  {% endif %}
+					{% endif %}
+
+					<option value="/cart">Checkout - {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }} for {{ cart.total_price | money }}</option>
+					
+		</select>
+
+  </nav>
+</div>

@@ -1,0 +1,8 @@
+{% if shop.customer_accounts_enabled %}
+  {% if customer  %}
+    {{ settings.widget_customer_session_welcome_text }} <a href="/account">{{ customer.first_name }}</a><br />
+		{{ "Log out" | customer_logout_link }}
+  {% else %}
+    {{ "Log in" | customer_login_link }}
+  {% endif %}
+{% endif %}

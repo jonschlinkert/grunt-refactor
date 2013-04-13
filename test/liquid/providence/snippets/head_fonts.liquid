@@ -1,0 +1,5 @@
+{% assign font_scopes_string = 'font_global_google, font_logo_text_google, font_nav_primary_google, font_headings_google, font_sidebar_headings_google' %}
+{% assign font_scopes = font_scopes_string | split: ', ' %}
+{% for font_scope in font_scopes %}{% if settings[font_scope] != '' %}
+	<link href="http://fonts.googleapis.com/css?family={{ settings[font_scope] | replace: ' ', '+' }}:400,500,700,400italic,700italic" rel="stylesheet" type="text/css">
+{% endif %}{% endfor %}

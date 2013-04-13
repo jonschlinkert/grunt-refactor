@@ -1,0 +1,52 @@
+{% include 'variables' %}
+{% assign columns = 12 | divided_by: product_span %}
+{% assign clear_row_full = forloop.index | modulo: columns %}
+
+{% if forloop.length <= columns or forloop.rindex <= columns %}
+  {% assign last_row = " last" %}
+{% endif %}
+
+{% if forloop.first %}
+<div class="row-fluid{{last_row}}">
+{% endif %}
+
+
+<div class="span{{product_span}}">
+  <article class="hcollection {{collection.handle}} thumbnail">
+    <div class="image">
+  		<a href="{{ collection.url }}" title="Browse our {{ collection.title | escape }} collection">
+  	    {% if collection.image %}
+  				{{ collection.image.src | collection_img_url: 'original' | img_tag: collection.title }}
+  			{% else %}
+  				{{ collection.products.first.featured_image.src | product_img_url: 'original' | img_tag: collection.title }}
+  			{% endif %}
+  		</a>
+  	</div>
+	
+  	<div class="details tcl">
+  	  <header>
+  			<h1>
+  				<a href="{{ collection.url }}" title="{{ collection.title }}">
+  				  <span class="name">{{ collection.title }}</span>
+  				</a>
+  			</h1>
+  		</header>
+  		
+  		<span class="product-count">{{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'item', 'items' }}</span>
+  		
+  	</div>
+  </article>
+</div>
+
+
+{% if clear_row_full == 0 %}
+</div>
+<div class="row-fluid{{last_row}}">
+{% endif %}
+
+{% if forloop.last %}
+</div>
+{% endif %}
+
+
+

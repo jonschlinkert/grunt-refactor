@@ -1,0 +1,2 @@
+imports: 
+  lodash: /\@import "_ */g

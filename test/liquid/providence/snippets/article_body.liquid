@@ -1,0 +1,31 @@
+{% assign display_excerpt = article_area | append: '_display_excerpt?' %}
+{% assign display_sharing = article_area | append: '_display_sharing?' %}
+{% assign display_prev_next = article_area | append: '_display_prev_next?' %}
+{% assign display_tags = article_area | append: '_display_tags?' %}
+{% assign excerpt_length = article_area | append: '_excerpt_length' %}
+{% assign read_more_text = article_area | append: '_read_more_text' %}
+
+
+{% if article_area != 'article' %}
+	<!-- Article list -->
+
+	{% if article_area == 'blog_articles' %}
+		{% if settings.blog_articles_display_style == 'excerpt' %}
+			{% include 'article_excerpt' %}
+		{% else %}
+			<div class="entry-content">
+				{{ article.content }}
+			</div>
+		{% endif %}		
+	{% endif %}
+
+	{% if settings[display_excerpt]  %}
+		{% include 'article_excerpt' %}
+	{% endif %}
+
+{% else %}
+	<!-- Single article -->
+	<div class="entry-content">
+		{{ article.content }}
+	</div>
+{% endif %}

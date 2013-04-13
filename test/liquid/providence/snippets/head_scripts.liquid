@@ -1,0 +1,13 @@
+{{ 'jquery-1.8.2.min.js' | asset_url | script_tag }}
+{{ 'jquery-ui-1.8.24.custom.min.js' | asset_url | script_tag }}
+{{ 'modernizr-2.6.1.min.js' | asset_url | script_tag }}
+
+<!-- Template specific -->
+{% if template contains 'customers' %}
+    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+{% endif %}
+
+{% if template contains 'product' %}
+	{% include 'scripts_product' %}
+{% endif %}

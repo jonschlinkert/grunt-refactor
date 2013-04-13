@@ -1,0 +1,21 @@
+{% assign products_instance = 'widget_products_' | append: widget_instance %}
+{% assign products = settings[products_instance] %}
+{% assign limit = 'widget_products_' | append: widget_instance | append: '_limit' %}
+{% assign tag_filter = 'widget_products_' | append: widget_instance | append: '_filter' %}
+{% assign display_images = 'widget_products_' | append: widget_instance | append: '_display_images?' %}
+
+<ul class="product-list">
+	{% if settings[tag_filter] != '' %}
+		{% for product in collections[products].all_products limit: settings[limit] %}
+			{% for tag in product.tags %}
+				{% if tag == settings[tag_filter] %}
+					{% include 'widget_products_product' %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% else %}
+		{% for product in collections[products].all_products limit: settings[limit] %}
+			{% include 'widget_products_product' %}
+		{% endfor %}
+	{% endif %}
+</ul>

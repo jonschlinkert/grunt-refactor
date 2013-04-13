@@ -1,0 +1,92 @@
+{% assign has_sidebar = false %}
+{% assign has_crumbs = true %}
+{% include 'page_header' with product.title %}
+{% include 'container_open' %}
+{% include 'page_content_open' with has_sidebar %}
+
+<article class="hproduct single product-{{product.id}} {{product.handle}} clearfix">
+
+		<div class="span5">
+		
+			<!-- Featured image -->
+			<div id="featured-image">
+				<div class="icon-zoom"></div>
+
+				{% if product.featured_image %}	
+				<a href="{{ product.featured_image | product_img_url: 'original' }}" data-image-index="1" title="{% if image.alt %}{{ image.alt }}{% else %}{{ product.title }}{% endif %}"><img src="{{ product.featured_image | product_img_url: 'original' }}" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ product.title }}{% endif %}" /></a>
+				{% endif %}
+			</div>
+		
+
+	
+			<!-- Thumbs -->
+			<div class="thumbs thumb-count-{{product.images.size}}">
+				{% for image in product.images %}
+					{% assign newRow = forloop.index | modulo: 3 %}
+
+					{% if forloop.first %}
+						<div class="row-fluid">
+					{% endif %}
+				
+					<div class="span4{%if product.images.size <= 1%} hidden{%endif%}">
+						<div class="product-thumb">
+							<a href="{{ image | product_img_url: 'medium' }}" title="{% if image.alt %}{{ image.alt }}{% else %}{{ product.title }}{% endif %}" data-grande-image="{{ image | product_img_url: 'original' }}" data-image-index="{{forloop.index}}"><img src="{{ image | product_img_url: 'medium' }}" alt="{% if image.alt %}{{ image.alt }}{% else %}{{ product.title }}{% endif %}" /></a>
+							<a href="{{ image | product_img_url: 'original' }}" class="fancybox" rel="product" style="display:none;"></a>
+						</div>
+					</div>
+
+					{% if newRow == 0 %}
+					</div>
+					<div class="row-fluid{{last_row}}">
+					{% endif %}
+					
+					{% if forloop.last %}
+						</div>
+					{% endif %}
+					
+				{% endfor %}
+			</div>
+			
+		</div>
+		
+		<div class="span1">&nbsp;</div>
+		<div class="span6">
+	
+			{% if collection and settings.product_collection_nav_top? %}
+				<div id="nav-collection-top">{% include 'product_collection_nav' %}</div>
+		  {% endif %}
+		
+			<div class="details">
+				{% include 'product_header' %}
+				
+				<span class="price tcd">
+					{% if default_options %}{{ product.variants.first.price | money }}{% endif %}
+				</span>
+
+				{% if settings.product_variations_location == 'top' %}
+					{% include 'product_variants' %}
+					{% include 'product_body' %}
+				{% else %}
+					{% include 'product_body' %}
+					{% include 'product_variants' %}
+				{% endif %}
+
+				{% include 'product_footer' %}
+			</div>
+
+			{% if collection and settings.product_collection_nav_bottom? %}
+		    	<div id="nav-collection-bottom">{% include 'product_collection_nav' %}</div>
+		    {% endif %}
+		</div>		
+
+</article>
+
+{% if settings.product_display_related? %}
+{% if collection.products.size > 0 or product.collections.first.products.size > 0 %}
+	{% include 'product_related' %}
+{% endif %}
+{% endif %}
+
+
+{% include 'page_content_close' %}		
+{% include 'container_close' %}
