@@ -1,0 +1,11 @@
+<div class="entry-summary">
+	{{#if article.excerpt == blank}}
+		{{ article.content | truncatewords: settings[excerpt_length] }}
+	{{else}}
+		{{ article.excerpt }}
+	{{/if}}
+
+	{{#if settings[read_more_text]}}
+		<span class="more-link">{{ settings[read_more_text] | link_to: article.url }}</span>
+	{{/if}}
+</div>

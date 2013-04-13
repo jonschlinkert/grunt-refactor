@@ -1,0 +1,38 @@
+{{assign has_sidebar = true}}
+{{assign has_crumbs = true}}
+{{assign section_class = with-sidebar}}
+{{paginate blog.articles by settings.blog_articles_per_page}}
+
+{{include page_header with blog.title}}
+
+{{include container_open with section_class}}
+
+{{#if settings.page_sidebar_side == left}}
+{{> sidebar }}
+{{/if}}
+
+{{> page_content_open }}
+
+{{#if current_tags}}
+	<div class="current-tags">
+		Viewing posts tagged <strong>{{current_tags}}</strong>.
+	</div>
+{{/if}}
+
+<div class="hfeed">
+{{for article in blog.articles}}
+	{{> article_short }}
+{{/for}}
+</div>
+
+{{> pagination_numbered }}
+{{> page_content_close }}
+
+
+{{#if settings.page_sidebar_side != left}}
+{{> sidebar }}
+{{/if}}
+
+{{> container_close }}
+
+{{endpaginate}}

@@ -1,0 +1,125 @@
+{{> variables }}
+
+<script type="text/javascript">
+// <![CDATA[
+jQuery(function() {
+	
+  // Option Select
+  {{#if product.available}}
+  
+  {{assign look_for_image_match = false}}
+  {{assign option_index = 0}}
+  {{for option in product.options}}
+    {{assign downcased_option = option | downcase}}
+    {{#if downcased_option contains color or downcased_option contains colour or downcased_option contains style}}
+      {{assign look_for_image_match = true}}
+      {{assign option_index = forloop.index0}}
+    {{/if}}
+  {{/for}} 
+
+  
+  var selectCallback = function(variant, selector) {
+
+		// if item is backordered yet can still be ordered, well show special message.
+		if (variant && variant.inventory_management && variant.inventory_quantity <= 0 && variant.available) {
+			jQuery(.backorder-notice:hidden p .variant-title).text({{ product.title | json }} +  -  + variant.title);
+			jQuery(.backorder-notice:hidden).fadeIn(300)
+		} else {
+			// Hide backorder notice
+			jQuery(.backorder-notice:visible).fadeOut(300);
+		}
+
+    if (variant && variant.available) {
+		
+			// Selected a valid variant that is available
+			jQuery(.add-to-cart).removeClass(disabled).removeAttr(disabled).text("{{button_add_to_cart_text}}").fadeTo(200,1);
+
+	    if(variant.compare_at_price > variant.price){
+	      var comp = Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}");
+
+				{{#if settings.product_display_compare_at?}}
+	      jQuery(.product .single .price).addClass(compared).html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}") + "<em class=compare>" + comp + "</em>");  // update price field      
+				{{else}}
+				jQuery(.product .single .price).html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+				{{/if}}
+	    } else {
+				jQuery(.product .single .price).html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+			}
+
+    } else {
+	    // variant doesnt exist
+			var message = variant ? "Sold Out" : "Unavailable";    
+	    jQuery(.add-to-cart).text(message).addClass(disabled).attr(disabled, disabled); // set add-to-cart button to unavailable class and disable button
+	    jQuery(.product .single .price).text(message); // update product-price message
+    }
+
+  };
+
+  new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+  jQuery(.single-option-selector).addClass(span12 customselect).after("<div style=clear:both;></div>");
+	
+	$(.styledselects .single-option-selector.customselect).not(#product-select).selectBoxIt({ 
+			showEffect: "fadeIn",
+			showEffectSpeed: 100,
+			hideEffect: "fadeOut",
+			hideEffectSpeed: 100
+		})
+	
+	$(.selectboxit).removeClass(btn);
+	
+	$(ul.selectboxit-options).each(function(){
+		newWidth = $(this).closest(.selectboxit-container).width();
+    $(this).css(width, newWidth);
+		})
+		
+ 	// Add label
+	jQuery(.selector-wrapper:eq(0)).find(label).remove();
+
+  {{#if product.options.first == Title and product.options.size == 1}}
+		jQuery(.selector-wrapper:eq(0)).prepend(<label for="product-select-option-0">Type</label>);
+	{{else}}
+  	jQuery(.selector-wrapper:eq(0)).prepend(<label for="product-select-option-0">{{ product.options.first }}</label>);
+  {{/if}}
+
+	jQuery(.selector-wrapper).last().addClass(last);
+
+  {{#if look_for_image_match}}
+
+		// If a color is selected, show the matching product image.
+	  jQuery(.single-option-selector:eq({{ option_index }})).bind(change, function() {
+			var color = jQuery(this).val();
+			var thumbLink = jQuery(.thumbs img[alt=" + color + "]:eq(0)).closest(a);
+			jQuery(#product-select-option-{{option_index}}SelectBoxIt .selectboxit-text).attr(data-val, color).text(color);
+			setFeaturedImage(thumbLink);
+	  });
+ 
+	  // If an image is shown in Main View, auto-select the corresponding color option.
+	  jQuery(.thumbs img).bind(click, function() {
+	   var color = jQuery(this).attr(alt);
+	   if (color && color !== ) {
+	     var options = jQuery(.single-option-selector:eq({{ option_index }}) option[value=" + color + "]);
+	     if (options.size() !== 0) {
+	     	jQuery(.single-option-selector:eq({{ option_index }})).val(color).trigger(change);
+	     }
+	   }
+	   return true;
+	  });
+
+  {{/if}}
+
+  // Auto-select first available variant on page load.
+  {{assign found_one_in_stock = false}}
+  {{for variant in product.variants}}
+    {{#if variant.available and found_one_in_stock == false}}
+      {{assign found_one_in_stock = true}}
+      {{for option in product.options}}
+      jQuery(.single-option-selector:eq({{ forloop.index0 }})).val({{ variant.options[forloop.index0] | json }}).trigger(change);
+      {{/for}}
+    {{/if}}
+  {{/for}}
+ 
+ {{/if}}
+
+});
+// ]]>
+</script>

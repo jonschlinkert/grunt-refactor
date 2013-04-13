@@ -1,0 +1,16 @@
+{{assign social_networks_string = twitter, facebook, google-plus, flickr, youtube, vimeo, pinterest}}
+{{assign social_networks = social_networks_string | split: , }}
+
+{{for network in social_networks}}
+  {{assign current_network = network | prepend: widget_social_links_}}
+	
+	{{#if settings[current_network] != }}
+		{{assign current_network_icon = network | prepend: icon-social- | append: .png}}
+		<div class="social-network">
+			<a href="http://{{ settings[current_network] | replace: http://,  }}" title="{{ network | replace: -,   | capitalize }}" data-target="_blank">
+				{{ current_network_icon | asset_url | img_tag }}
+			</a>
+		</div>
+	{{/if}}
+	
+{{/for}}

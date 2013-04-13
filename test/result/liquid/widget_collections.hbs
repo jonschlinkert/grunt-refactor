@@ -1,0 +1,13 @@
+<ul class="link-list">
+	{{for collection in collections}}
+		{{#if settings.widget_collections_filter != }}
+			{{for tag in collection.tags}}	
+				{{#if tag == settings.widget_collections_filter}}
+					<li>{{ collection.title | link_to: collection.url }}</li>
+				{{/if}}
+			{{/for}}			
+		{{else}}
+			<li>{{ collection.title | link_to: collection.url }}</li>
+		{{/if}}
+	{{/for}}
+</ul>

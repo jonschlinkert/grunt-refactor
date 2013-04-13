@@ -1,0 +1,23 @@
+{{#if settings.collection_display_browse?}}
+	{{#if collection.all_tags.size > 0}}
+		<div class="tag-filter">
+			<form>
+				<fieldset class="clearfix">
+				  <div class="control-group">
+						{{#if settings.collection_browse_text}}
+				    <label class="control-label">{{ settings.collection_browse_text }}</label>
+						{{/if}}
+				    <div class="controls">
+				      <select id="collection-tags" class="customselect">
+				        <option value="">All</option>
+						    {{for tag in collection.all_tags}}
+						    <option value="{{ tag | handle }}" id="{{ tag | handle }}"{{#if current_tags contains tag}} selected{{/if}}>{{ tag }}</option>		
+						    {{/for}}
+				      </select>
+				    </div>
+				  </div>
+				</fieldset>
+			</form>
+		</div>
+	{{/if}}
+{{/if}}

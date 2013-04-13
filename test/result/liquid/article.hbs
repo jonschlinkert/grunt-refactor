@@ -1,0 +1,42 @@
+{{assign has_sidebar = true}}
+{{assign has_crumbs = true}}
+{{assign section_class = with-sidebar}}
+
+{{paginate article.comments by 50}}
+
+{{include page_header with blog.title}}
+
+{{include container_open with section_class}}
+
+{{#if settings.page_sidebar_side == left}}
+{{> sidebar }}
+{{/if}}
+
+{{> page_content_open }}
+
+{{assign article_area = article}}
+{{include article_header with article_area}}
+{{> article_body }}
+{{> article_footer }}
+
+{{#if blog.comments_enabled?}}
+	{{#if article.comments.size > 0}}
+		{{> comments }}
+		{{> pagination_numbered }}
+	{{/if}}
+	{{> comment_form }}
+{{/if}}
+
+{{> article_nav }}
+
+{{> page_content_close }}		
+
+{{#if settings.page_sidebar_side != left}}
+{{> sidebar }}
+{{/if}}
+
+{{> container_close }}
+
+{{endpaginate}}
+
+

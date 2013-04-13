@@ -1,0 +1,11 @@
+{{#if collections[settings.widget_tags_products_collection].all_tags.size > 0}}
+
+<ul class="tag-list tags-products">
+{{for tag in collections[settings.widget_tags_products_collection].all_tags}}
+<li class="{{ tag | handleize }}{{#if current_tags contains tag}} active{{/if}}">
+	<a href="{{ shop.url}}/collections/{{ collections[settings.widget_tags_products_collection].handle }}/{{ tag | handleize }}">{{ tag }}</a>
+</li>
+{{/for}}
+</ul>
+
+{{/if}}

@@ -1,0 +1,26 @@
+{{> mobile_search }}
+
+<div id="site-wrap">
+	
+	<!-- Header -->
+	<header id="site-header" class="clearfix">
+ 		<div class="container-fluid">
+			<div class="clearfix">
+ 				{{> branding }}
+
+				<div id="nav-with-search">
+					{{> header_search }}
+ 					{{> nav_primary }}
+				</div>
+				
+				<div id="mobile-toggles" class="pull-right visible-phone">
+					<a href="#" id="toggle-mobile-nav"><i class="icon-plus"></i></a>
+					<a href="#" id="toggle-mobile-search"><i class="icon-search"></i></a>
+				</div>
+				
+			</div>
+		
+			{{> nav_mobile_list }}
+			
+ 		</div>
+ 	</header>

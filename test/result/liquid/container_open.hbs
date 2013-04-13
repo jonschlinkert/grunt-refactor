@@ -1,0 +1,12 @@
+{{#if section_class}}
+	{{assign the_class = section_class}}
+	{{#if the_class | contains: with-sidebar}}
+		{{assign sidebar_side = settings.page_sidebar_side}}
+	{{/if}}
+{{else}}
+	{{assign the_class = default}}
+{{/if}}
+
+<div class="page-content-inner {{the_class}} sidebar-{{ sidebar_side }}">
+	<div class="container-fluid">
+		<div class="row-fluid">

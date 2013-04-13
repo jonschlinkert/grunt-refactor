@@ -1,0 +1,7 @@
+{{assign links_instance = widget_links_ | append: widget_instance}}
+{{assign links = settings[links_instance]}}
+<ul class="link-list">
+{{for link in linklists[links].links}}
+	<li>{{ link.title | link_to: link.url }}</li>
+{{/for}}
+</ul>

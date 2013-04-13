@@ -1,0 +1,35 @@
+{{assign widget_assignment = widget_area | append: _widget_0 | append: i}}
+
+{{#if settings[widget_assignment] != none}}
+	
+	{{assign widget = widget_ | append: settings[widget_assignment]}}
+	{{assign title = widget | append: _title}}
+	
+	{{#if widget contains _0}}
+		{{assign widget_instance = widget | split: _ | last}}
+		{{assign widget_suffix = _ | append: widget_instance}}
+		{{assign widget = widget | remove: widget_suffix}}
+		{{assign title = widget | append: _ | append: widget_instance | append: _title}}
+	{{/if}}
+	
+	{{assign widget_title = settings[title]}}
+	
+	<section>
+		<div class="widget {{widget | replace: _, - }} {{ widget_instance }} clearfix">
+			{{include widget_header with widget_title}}
+			{{include widget with widget_instance}}
+			{{> widget_footer }}
+		</div>
+	</section>
+
+{{/if}}
+
+{{assign widget = }}
+{{assign widget_suffix = }}
+{{assign widget_instance = }}
+{{assign widget_assignment = }}
+
+{{assign widget = }}
+{{assign widget = page_sidebar_widget_0 | append: i}}
+{{assign widget_snippet = }}
+{{assign widget_snippet = widget_ | append: settings[widget]}}

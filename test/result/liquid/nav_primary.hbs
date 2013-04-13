@@ -1,0 +1,54 @@
+<div id="nav-primary-wrap" class="hidden-phone">
+  <nav id="nav-primary">
+  <ul class="nav nav-pills">
+
+  	{{for link in linklists[settings.header_nav_primary_list].links}}
+
+  		{{assign current = false}}
+  		{{#if template == index and link.url == /}}
+  			{{assign current = true}}
+  		{{elsif collection.url == link.url}}
+  			{{assign current = true}}
+  		{{elsif blog.url == link.url}}
+  			{{assign current = true}}
+  		{{elsif page.url == link.url}}
+  			{{assign current = true}}
+  		{{elsif page_title == link.title}}
+  			{{assign current = true}}
+  		{{elsif template == list-collections and link.url == /collections}}
+  			{{assign current = true}}
+  		{{elsif page_title == Products and link.url == /collections/all}}
+  			{{assign current = true}}
+  		{{elsif template == article and link.url == article.url}}
+  			{{assign current = true}}
+  		{{/if}}
+
+		
+  		{{capture child_list_handle}}{{ link.title | handle }}{{endcapture}}
+		
+  		{{#if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0}}
+  			<li class="dropdown{{#if forloop.first}} first{{/if}}{{#if current}} active{{/if}}{{#if forloop.last}} last{{/if}}">
+  				<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ link.title }} <b class="caret"></b></a>
+  				<ul class="dropdown-menu">
+  		    	{{for l in linklists[child_list_handle].links}}
+  		      	<li><a href="{{ l.url }}">{{ l.title }}</a></li>
+  		      {{/for}}
+  		    </ul>
+  			</li>
+  			{{unless forloop.last}}
+				<li class="divider">/</li>
+  			{{endunless}}
+  		{{else}}
+  			<li class="nav-item{{#if forloop.first}} first{{/if}}{{#if current}} active{{/if}}{{#if forloop.last}} last{{/if}}">
+  				<a href="{{ link.url }}">{{ link.title }}</a>
+  			</li>
+  			{{unless forloop.last}}
+				<li class="divider">/</li>
+  			{{endunless}}
+  		{{/if}}
+
+    {{/for}}
+
+  </ul>
+  </nav>
+</div>

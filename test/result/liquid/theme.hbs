@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+	{{> html_tag }}
+	<head>
+		{{> variables }}
+    <!-- Meta -->
+		{{> meta }}
+    <!-- Styles -->
+    {{> head_styles }}
+    <!-- Scripts -->
+		{{> head_scripts }}
+		{{ content_for_header }}
+	</head>
+
+	<body class="{{template}}">
+		{{> header_actions }}
+		
+		<div id="theme-bg">
+	  	{{> header }}
+		
+		  <!-- Content -->
+			<section id="page-content">
+				<div class="container-fluid">
+				{{#if template == list-collections}}
+					{{> collection_listing }}
+				{{else}}
+					{{ content_for_layout }}
+				{{/if}}
+				</div>
+				<div class="footer-top-cap"></div>
+			</section>				
+		</div>	
+
+		
+		{{> footer }}
+		{{> footer_scripts }}	
+	</body>
+
+</html>

@@ -1,0 +1,25 @@
+<section class="index-products collection">
+	<div class="row-fluid">
+
+	{{#if settings.index_products_title != }}
+		<h1>{{ settings.index_products_title }}</h1>
+	{{/if}}
+
+	<div class="thumbnails products">
+	{{for product in collections[settings.index_products].all_products limit: settings.index_products_limit}}
+
+			{{#if settings.index_products_filter != }}
+				{{for tag in product.tags}}
+					{{#if tag == settings.index_products_filter}}
+					  {{> product_small }}
+					{{/if}}
+				{{/for}}
+			{{else}}
+	      {{> product_small }}
+			{{/if}}
+		
+	{{/for}}
+	</div>
+
+	</div>
+</section>

@@ -1,0 +1,50 @@
+{{assign height = area | append: _slide_height}}
+{{assign video_ratio = area | append: _slide_video_ratio}}
+{{assign duration = area | append: _slide_duration}}
+{{assign transition_duration = area | append: _slide_transition_duration}}
+{{assign autoplay = area | append: _autoplay_slideshow?}}
+
+
+{{#if settings[autoplay]}}
+  {{assign autoplay = 1}}
+  {{for i in (1..6)}}
+    {{assign slide_link = area | append: _slide_0 | append: forloop.index | append: _link}}
+    {{assign is_video = settings[slide_link] | divided_by: 1}}
+    {{#if is_video > 0}}
+      {{assign autoplay = 0}}
+    {{/if}}
+  {{/for}}
+{{else}}
+  {{assign autoplay = 0}}
+{{/if}}
+
+<div class="rslides-wrap">
+<div id="{{area}}-slides" class="rslides-container">
+	<ul class="rslides" data-loader="{{ loading.gif | asset_url }}" data-autoplay="{{autoplay}}" data-video-ratio="{{settings[video_ratio]}}" data-duration="{{settings[duration] | times: 1000.0 }}" data-transition-duration="{{settings[transition_duration] | times: 1000.0}}">
+	  
+	  {{for i in (1..6)}}
+			{{assign display_slide = area | prepend: display_ | append: _slide_0 | append: forloop.index | append: ?}}
+			{{assign slide_image = area | append: _slide_0 | append: forloop.index | append: .jpg}}
+			{{assign slide_link = area | append: _slide_0 | append: forloop.index | append: _link}}
+			{{assign is_video = settings[slide_link] | divided_by: 1}}
+
+			{{#if settings[display_slide]}}
+			
+			  {{#if is_video > 0}}
+			    <li class="rslide video">  
+            <iframe src="http://player.vimeo.com/video/{{settings[slide_link]}}?title=0&amp;byline=0&amp;portrait=0&amp;color={{settings.color_accent_01 | replace: #, }}" width="100%" height="{{settings[height]}}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+          </li>
+			  {{else}}
+          {{#if settings[slide_link] != }}
+  					<li class="rslide">{{ slide_image | asset_url | img_tag | link_to: settings[slide_link] }}</li>
+  				{{else}}
+  					<li class="rslide">{{ slide_image | asset_url | img_tag }}</li>
+  				{{/if}}
+		    {{/if}}
+			
+			{{/if}}
+		{{/for}}
+	</ul>
+</div>
+<div class="clearfix"></div>
+</div>

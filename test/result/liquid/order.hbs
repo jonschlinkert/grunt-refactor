@@ -1,0 +1,135 @@
+{{layout settings.customer_layout}}
+
+{{assign has_sidebar = false}}
+{{assign has_crumbs = true}}
+{{assign page_title = "Details for Order " | append: order.name}}
+
+<div id="customer-account">
+{{include page_header with page_title}}
+{{> container_open }}
+{{include page_content_open with has_sidebar}}
+
+{{#if order.cancelled}}
+<div id="order-cancelled" class="flash notice">
+  <h5 id="order-cancelled-title">This order was cancelled on {{ order.cancelled_at | date: "%B %d, %Y %I:%M%p" }}</span></h5>
+	{{ order.cancel_reason }}
+</div>
+{{/if}}
+
+<div id="order-status">
+{{#if order.fulfillment_status == unfulfilled}}
+<span class="label">{{ order.fulfillment_status | capitalize }}</span>
+{{elsif order.fulfillment_status == fulfilled}}
+<span class="label label-success">{{ order.fulfillment_status | capitalize }}</span>
+{{/if}}
+</div>
+
+<div id="order-meta">
+
+	<div class="meta-item clearfix">
+		<span class="meta-title">Placed on:</span>
+		<span class="status">{{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</span>
+	</div>
+
+	<div class="meta-item clearfix">
+	<span class="meta-title">Payment status:</span>
+	<span class="status status-{{ order.financial_status }}">{{ order.financial_status | capitalize}}</strong>
+	</div>
+
+</div>
+
+<div id="order-address">
+<div class="row-fluid">
+	<div class="span4">
+		<div id="order-payment">
+      <h3>Billing Address</h2>
+				<address>
+        {{ order.billing_address.name }}<br>
+        {{ order.billing_address.company }}<br>
+        {{ order.billing_address.street }}<br>
+        {{ order.billing_address.city }}, {{ order.billing_address.province }}<br>
+        {{ order.billing_address.country }} {{ order.billing_address.zip }}<br>
+        {{ order.billing_address.phone }}<br>
+      </address>
+    </div>
+	</div>
+	<div class="span4">
+		{{#if order.shipping_address}}
+      <div id="order-shipping">
+        <h3>Shipping Address</h2>
+        	<address>
+					  {{ order.shipping_address.name }}<br>
+					  {{ order.shipping_address.company }}<br>
+					  {{ order.shipping_address.street }}<br>
+					  {{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br>
+					  {{ order.shipping_address.country }} {{ order.shipping_address.zip }}<br>
+					  {{ order.shipping_address.phone }}<br>
+					</address>
+      </div>
+    {{/if}}
+	</div>
+</div>
+</div>
+
+<table id="order-line-items" class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>SKU</th>
+			<th class="tac">Quantity</th>
+      <th class="tac">Price</th>
+      <th class="total tac">Total ({{ shop.currency }})</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{for line_item in order.line_items}}
+    <tr id="{{ line_item.id }}" class="{{cycle odd, even}}">
+      <td class="product">
+        {{ line_item.title | link_to: line_item.product.url }} 
+        {{#if line_item.fulfillment}}
+          <div class="note">
+            Fulfilled {{ line_item.fulfillment.created_at | date: "%b %d" }}
+            {{#if line_item.fulfillment.tracking_number}}
+              <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+            {{/if}}
+          </div>
+        {{/if}}
+      </td>
+      <td class="sku">{{ line_item.sku }}</td>
+			<td class="quantity tac">{{ line_item.quantity }}</td>
+      <td class="money tar">{{ line_item.price | money }}</td>
+      <td class="total money tar">{{ line_item.quantity | times: line_item.price | money }}</td>
+    </tr>
+    {{/for}}
+  </tbody>  
+  <tfoot>
+    <tr class="order-summary">
+      <td class="tar" colspan="4">Subtotal:</td>
+      <td class="total money tar">{{ order.subtotal_price | money }}</td>
+    </tr>   
+
+    {{for shipping_method in order.shipping_methods}}
+    <tr class="order-summary">
+      <td class="tar" colspan="4">Shipping ({{ shipping_method.title }}):</td>
+      <td class="total money tar">{{ shipping_method.price | money }}</td>
+    </tr>
+    {{/for}}
+
+    {{for tax_line in order.tax_lines}}
+      <tr class="order-summary">
+        <td class="tar" colspan="4">Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%):</td>
+        <td class="total money tar">{{ tax_line.price | money }}</td>
+      </tr>
+    {{/for}}    
+
+    <tr class="order-summary order-total">
+      <td class="tar" colspan="4">Total:</td>
+      <td class="total money tar">{{ order.total_price | money }} {{ order.currency }}</td>
+    </tr>   
+  </tfoot>  
+</table>
+	
+{{> page_content_close }}		
+{{> container_close }}
+</div>
+

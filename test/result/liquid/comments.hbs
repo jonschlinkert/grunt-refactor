@@ -1,0 +1,8 @@
+<div id="comments">
+	{{#if settings.article_comments_title_text}}
+		<h2>{{ settings.article_comments_title_text }}</h2>
+	{{/if%}
+	{{for comment in article.comments}}
+		{{include comment with comment}}
+	{{/for}}
+</div>

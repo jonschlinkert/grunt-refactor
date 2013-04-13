@@ -430,14 +430,23 @@ module.exports = function(grunt) {
             cwd: 'test/underscore/',
             src: ['*.tmpl.md'],
             dest: 'test/result/underscore/',
-            ext: '.md'
+            ext: '.md.hbs'
+          },
+          {
+            // Test Sample
+            expand: true,
+            flatten: true,
+            cwd: 'test/liquid/',
+            src: ['**/*.liquid'],
+            dest: 'test/result/liquid/',
+            ext: '.hbs'
           }
         ],
         options: {
           replacements: [
             // Replace liquid variables
             {
-              pattern: /({%=)/g,
+              pattern: /({%= )/g,
               replacement: '{{'
             },
             {
@@ -445,7 +454,7 @@ module.exports = function(grunt) {
               replacement: '{{'
             },
             {
-              pattern: /(%})/g,
+              pattern: /( %})/g,
               replacement: '}}'
             },
             {
@@ -453,7 +462,27 @@ module.exports = function(grunt) {
               replacement: '{{#if'
             },
             {
+              pattern: /({{if)/g,
+              replacement: '{{#if'
+            },
+            {
+              pattern: /(endif)/g,
+              replacement: '/if'
+            },
+            {
+              pattern: /(endfor)/g,
+              replacement: '/for'
+            },
+            {
               pattern: /( \|\| \'\')/g,
+              replacement: ''
+            },
+            {
+              pattern: /({{)(include ')(.*)('\}})/g,
+              replacement: '$1> $3 }}'
+            },
+            {
+              pattern: /(')/g,
               replacement: ''
             }
           ]
