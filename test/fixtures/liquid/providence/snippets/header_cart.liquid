@@ -1,0 +1,10 @@
+<span class="cart">	
+	<span class="items">
+		<a href="/cart">
+	     <i class="icon-shopping-cart icon-white"></i> {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}
+			 <span class="order-total">
+			 	- {{ cart.total_price | money }}
+			 </span>
+	  </a>
+	</span>
+</span>

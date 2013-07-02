@@ -1,0 +1,76 @@
+{% assign has_sidebar = false %}
+
+<header class="page-header">
+	<div class="container-fluid">
+
+		<h1 class="pull-left">{{ collection.title }}</h1>
+		
+		<div class="hidden-phone">
+			{% include 'collection_tag_filter' %}
+		</div>
+		
+		{% include 'breadcrumbs' %}
+	
+	</div>
+</header>
+
+
+{% include 'container_open' %}
+{% include 'page_content_open' with has_sidebar %}
+
+	<div class="visible-phone">
+		{% include 'collection_tag_filter' %}
+	</div>
+
+	{% if collection.description != '' %}
+		<div class="collection-description">{{ collection.description }}</div>
+	{% endif %}
+
+	{% paginate collection.products by settings.collection_results_per_page %}
+	{% if collection.products.size > 0 %}
+
+		<div class="thumbnails products">
+			{% for product in collection.products	 %}
+			  {% include 'product_small' %}
+			{% endfor %}
+		</div>
+
+		{% include 'pagination_numbered' %}
+
+	{% else %}
+		<p class="empty">There are currently no products in this collection.</p>
+	{% endif %}
+	{% endpaginate %}
+
+	<script>
+	jQuery('#collection-tags').change(function() {
+	  var newUrl = '';
+	  var tag = jQuery(this).val();
+	  {% if collection.handle %}
+	  if (jQuery(this).val() === '') {
+	    newUrl = '/collections/{{ collection.handle }}';
+	  }
+	  else {
+	    newUrl = '/collections/{{ collection.handle }}/' + tag;
+	  }
+	  {% elsif collection.products.first.type == collection.title %}
+	  if (jQuery(this).val() === '') {
+	    newUrl = '{{ collection.title | url_for_type }}';
+	  }
+	  else {
+	    newUrl = '{{ collection.title | url_for_type }}&constraint=' + tag;        
+	  }
+	  {% elsif collection.products.first.vendor == collection.title %}
+	  if (jQuery(this).val() === '') {
+	    newUrl = '{{ collection.title | url_for_vendor }}';
+	  }
+	  else {
+	    newUrl = '{{ collection.title | url_for_vendor }}&constraint=' + tag;        
+	  }
+	  {% endif %}
+	  window.location.href = newUrl;
+	});
+	</script>
+
+{% include 'page_content_close' %}		
+{% include 'container_close' %}

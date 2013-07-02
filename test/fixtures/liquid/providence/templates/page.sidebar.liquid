@@ -1,0 +1,21 @@
+{% assign has_sidebar = true %}
+{% assign has_crumbs = true %}
+{% assign section_class = 'with-sidebar' %}
+
+{% include 'page_header' with page.title %}
+{% include 'container_open' with section_class %}
+
+{% if settings.page_sidebar_side == 'left' %}
+{% include 'sidebar' %}
+{% endif %}
+
+{% include 'page_content_open' %}
+{{ page.content }}
+{% include 'page_content_close' %}		
+
+{% if settings.page_sidebar_side != 'left' %}
+{% include 'sidebar' %}
+{% endif %}
+
+{% include 'container_close' %}
+

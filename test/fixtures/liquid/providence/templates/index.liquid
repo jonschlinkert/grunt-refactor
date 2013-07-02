@@ -1,0 +1,42 @@
+{% if settings.index_display_slideshow? %}
+	<div class="container-fluid">
+	{% assign area = 'index' %}
+	{% include 'slideshow' with area %}
+	</div>
+{% endif %}
+
+
+{% if settings.index_display_highlight_bar? %}
+<div class="highlight-bar clearfix">
+	{{ pages[settings.index_content_hb].content }}
+</div>
+{% endif %}
+
+{% include 'container_open' %}
+{% include 'page_content_open' with has_sidebar %}
+
+{% if settings.index_content_s1 != '' and settings.index_content_s2 != '' %}
+	<div class="index-content">
+		<div class="row-fluid">
+			<div class="span6">
+				{{ pages[settings.index_content_s1].content }}
+			</div>
+			<div class="span6">
+				{{ pages[settings.index_content_s2].content }}
+			</div>
+		</div>
+	</div>
+{% else %}
+	{% if settings.index_content_s1 != '' %}
+		<div class="index-content">
+			{{ pages[settings.index_content_s1].content }}
+		</div>
+	{% endif %}
+{% endif %}
+
+{% if settings.index_products != '' %}
+	{% include 'index_products' %}
+{% endif %}
+
+{% include 'page_content_close' %}		
+{% include 'container_close' %}

@@ -1,0 +1,57 @@
+{% include 'variables' %}
+{% assign columns = 12 | divided_by: product_span %}
+{% assign clear_row_full = forloop.index | modulo: columns %}
+
+{% if forloop.length <= columns or forloop.rindex <= columns %}
+  {% assign last_row = " last" %}
+{% endif %}
+
+{% if forloop.first %}
+<div class="row-fluid{{last_row}}">
+{% endif %}
+
+<div class="span{{product_span}}">
+  <article class="hproduct product-{{product.id}} {{product.handle}} thumbnail">
+
+    <div class="image">
+  		<a href="{{ product.url | within: collection }}" title="{{ product.title }}">
+  		<img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title }}" />
+  		</a>
+  	</div>
+	
+  	<div class="details tcl">
+		
+  		<header>
+  			<h1>
+  				<a href="{{ product.url | within: collection }}" title="{{ product.title }}">
+  					<span class="name">{{ product.title }}</span>
+  				</a>
+  			</h1>
+  		</header>
+
+  		{% if settings.collection_display_vendor? %}
+  		<span class="brand">{{ product.vendor }}</span>
+  		{% endif %}
+
+  		{% if settings.collection_display_price? %}
+  			{% include 'product_price' %}
+  		{% endif %}
+
+  		{% if settings.collection_display_sale? %}
+  		{% if product.compare_at_price_max > product.price %}
+  		<span class="circle sale">{{ settings.collection_sale_sticker_text }}</span>
+  		{% endif %}
+  		{% endif %}
+  	</div>
+		
+  </article>
+</div>
+
+{% if clear_row_full == 0 %}
+</div>
+<div class="row-fluid{{last_row}}">
+{% endif %}
+
+{% if forloop.last %}
+</div>
+{% endif %}

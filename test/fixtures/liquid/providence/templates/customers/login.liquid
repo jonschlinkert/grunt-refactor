@@ -1,0 +1,25 @@
+{% layout settings.customer_layout %}
+
+{% assign has_sidebar = false %}
+{% assign has_crumbs = true %}
+{% include 'page_header' with 'My Account' %}
+{% include 'container_open' %}
+{% include 'page_content_open' with has_sidebar %}
+
+<div id="customer-account">
+{% if shop.checkout.guest_login %}
+  <div class="span6">
+	{% include 'customer_account_login' %}
+	{% include 'customer_account_recover_password' %}
+	</div>
+  <div class="span6">
+	{% include 'customer_account_login_guest' %}
+	</div>
+{% else %}
+	{% include 'customer_account_login' %}
+	{% include 'customer_account_recover_password' %}
+{% endif %}
+</div>
+
+{% include 'page_content_close' %}		
+{% include 'container_close' %}

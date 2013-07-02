@@ -1,0 +1,5 @@
+<article class="hentry entry-{{article.id}}{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %}">
+<header>
+	<h1 class="entry-title">{{ article.title | escape | link_to: article.url }}</h1>
+	{% include 'article_meta' %}
+</header>

@@ -53,7 +53,7 @@ In the **./test/** folder you will find files from [bootstrap-sass](https://gith
 
 #### What doesn't work?
 
-Let's just say, enough to get you fired if you're stuuu..... adventurous enough to use this on anything that pays your bills.
+Let's just say, enough to get you fired if you're adventurous enough to use this on anything that pays your bills.
 
 * Import statements: LESS cannot do comma separated lists of values, as SASS does. But this is easy to do if you're refactoring manually.
 * `@if`, `@else` and other magic that LESS doesn't do. These will have to be addressed by your actual brain, personally. (or impersonally, that's your call)

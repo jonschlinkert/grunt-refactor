@@ -1,0 +1,21 @@
+<section class="related-products collection">
+	<div class="row-fluid">
+
+		{% if settings.product_related_title != '' %}
+			<h1>{{ settings.product_related_title }}</h1>
+		{% endif %}
+
+		<div class="thumbnails products">
+			{% if collection %}
+				{% for product in collection.products limit: settings.product_related_limit %}
+					{% include 'product_small' %}
+				{% endfor %}
+			{% else %}
+		    {% for product in product.collections.first.products limit: settings.product_related_limit %}
+				  {% include 'product_small' %}
+				{% endfor %}
+      {% endif %}
+		</div>
+
+	</div>
+</section>

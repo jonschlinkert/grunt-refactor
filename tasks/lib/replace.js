@@ -1,6 +1,6 @@
 /*
  * grunt-replace (renamed from grunt-string-replace)
- * 
+ *
  * https://github.com/erickrdch/grunt-string-replace
  *
  * Copyright (c) 2012 Erick Ruiz de Chavez
@@ -13,20 +13,20 @@ exports.init = function(grunt) {
   var path = require('path');
 
   var detectDestType = function(dest) {
-      if (grunt.util._.endsWith(dest, '/')) {
-        return 'directory';
-      } else {
-        return 'file';
-      }
-    };
+    if (grunt.util._.endsWith(dest, '/')) {
+      return 'directory';
+    } else {
+      return 'file';
+    }
+  };
 
   var unixifyPath = function(filepath) {
-      if (process.platform === 'win32') {
-        return filepath.replace(/\\/g, '/');
-      } else {
-        return filepath;
-      }
-    };
+    if (process.platform === 'win32') {
+      return filepath.replace(/\\/g, '/');
+    } else {
+      return filepath;
+    }
+  };
 
   exports.replace = function(files, replacements) {
     var dest;

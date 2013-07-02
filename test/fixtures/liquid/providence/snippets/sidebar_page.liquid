@@ -1,0 +1,7 @@
+{% assign widget_area = 'page_sidebar'%}
+<div class="widgets">
+	{% for i in (1..5) %}
+		{% include 'get_widget' with i | newline_to_br %}
+	{% endfor %}
+</div>
+
