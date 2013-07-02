@@ -1,8 +1,0 @@
-<div id="comments">
-	{% if settings.article_comments_title_text %}
-		<h2>{{ settings.article_comments_title_text }}</h2>
-	{% endif%}
-	{% for comment in article.comments %}
-		{% include 'comment' with comment %}
-	{% endfor %}
-</div>
