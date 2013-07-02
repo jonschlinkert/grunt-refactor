@@ -1,3 +1,4 @@
 tmp
+vendor
 *.sublime-*
-node_modules/
+node_modules
