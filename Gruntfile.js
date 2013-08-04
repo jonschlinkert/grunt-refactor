@@ -11,16 +11,9 @@ module.exports = function(grunt) {
 
   'use strict';
 
-  // Captures the `@import` path and media condition
-  var Import = /\@import\s*(?:url\()?\s*["']([^'"]*)['"]\s*\)?\s*(.*?);/;
-
-  // WIP. Global version of `Import`
-  var ImportGlobal = new RegExp(Import.toString().slice(1, Import.toString().length - 1), ['g']);
-
-
   grunt.initConfig({
 
-    replace: {
+    refactor: {
       // replace.sass_with_less
       sass_with_less: {
         files: [{
@@ -66,11 +59,11 @@ module.exports = function(grunt) {
         ],
         options: {
           replacements: [{
-              // Replace SASS mixins with LESS mixins
+              // replace SASS mixins with LESS mixins
               pattern: /@mixin /g,
               replacement: '.'
             }, {
-              // Replace SASS variables with LESS variables
+              // replace SASS variables with LESS variables
               pattern: /\$ */g,
               replacement: '@'
             },
@@ -84,8 +77,8 @@ module.exports = function(grunt) {
             // have the ability to do the same things as LESS, so there
             // are workarounds that won't convert back to LESS.
             //
-            // Besides, there is no practical reason to use a verion of 
-            // Bootstrap that was converted from LESS to SASS and back 
+            // Besides, there is no practical reason to use a verion of
+            // Bootstrap that was converted from LESS to SASS and back
             // to LESS.
             {
               // Convert SASS grid mixin back to Bootstrap
@@ -439,8 +432,8 @@ module.exports = function(grunt) {
       // },
 
       // boostrap-sass
-      // The "replace" and "rename" tasks get 90% of the way 
-      // there. The grid in particular just won't convert cleanly. 
+      // The "replace" and "rename" tasks get 90% of the way
+      // there. The grid in particular just won't convert cleanly.
       // But variables, mixins, even some browser hacks are converted.
       bootstrap: {
         options: {
@@ -456,9 +449,9 @@ module.exports = function(grunt) {
       },
 
       // ZURB Foundation.
-      // As with sass-bootstrap, the "replace" and "rename" 
+      // As with sass-bootstrap, the "replace" and "rename"
       // tasks get 90% of the way there. You will need to
-      // make decisions with if/else statements, and comment 
+      // make decisions with if/else statements, and comment
       // out or change other code that doesn't convert.
       foundation: {
         options: {
@@ -539,18 +532,11 @@ module.exports = function(grunt) {
   // Load local tasks.
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('sass',    ['replace:sass_with_less']);
-  grunt.registerTask('liquid',  ['replace:liquid']);
-  grunt.registerTask('styles',  ['replace:styles']);
+  grunt.registerTask('sass',    ['refactor:sass_with_less']);
+  grunt.registerTask('liquid',  ['refactor:liquid']);
+  grunt.registerTask('styles',  ['refactor:styles']);
 
   // By default, lint and run all tests.
   grunt.registerTask('test',    ['jshint']); // 'less:test'
-  grunt.registerTask('default', [
-    'clean',
-    'jshint',
-    'sass',
-    'styles',
-    'liquid',
-    'rename'
-  ]);
+  grunt.registerTask('default', ['clean', 'jshint', 'sass', 'styles', 'liquid', 'rename']);
 };
