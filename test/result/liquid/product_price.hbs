@@ -1,9 +1,0 @@
-<span class="price tcd">
-	{{#if product.price_varies}}
-		<span class="from tcl">from</span>
-	{{/if}}
-	{{#if product.compare_at_price_max > product.price}}
-		<span class="compare tcl">{{ product.compare_at_price_max | money }}</span>
-	{{/if}}			
-	{{ product.price | money }}
-</span>

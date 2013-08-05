@@ -1,7 +1,0 @@
-<ul class="link-list">
-{{for article in blogs[settings.widget_articles_simple_blog].articles limit: settings.widget_articles_simple_limit}}
-	<li class="blog-article{{#if forloop.first}} first{{/if}}{{#if forloop.last}} last{{/if}}">
-		<div class="article-title">{{ article.title | escape | link_to: article.url }}</div>
-	</li>
-{{/for}}
-</ul>
