@@ -14,9 +14,11 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('refactor', 'String Replace Task.', function() {
     var options = this.options({
-      replacements: [],
-      rename: []
+      replacements: []
     });
+
+    grunt.verbose.writeflags(options, 'Options');
+    grunt.verbose.writeflags(this.files);
 
     // Execute replacements
     var replacements = normalizeReplacements(options.replacements);
@@ -53,9 +55,7 @@ module.exports = function(grunt) {
         } else {
           dest = filePair.dest;
         }
-
-        content = grunt.file.read(src);
-        content = replaceMultiStrings(content, replacements);
+        content = replaceMultiStrings(grunt.file.read(src), replacements);
         grunt.file.write(dest, content);
       });
     });
@@ -70,4 +70,5 @@ module.exports = function(grunt) {
       return [replacement.pattern, replacement.replacement];
     });
   }
+
 };

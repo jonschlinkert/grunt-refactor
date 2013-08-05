@@ -1,7 +1,7 @@
 {
   "name": "grunt-refactor",
   "description": "Grunt tasks for refactoring code.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/jonschlinkert/grunt-refactor",
   "author": {
     "name": "Jon Schlinkert",
@@ -25,8 +25,7 @@
     "assemble-less": "~0.4.8",
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-lib-contrib": "~0.6.1"
+    "grunt-contrib-jshint": "~0.6.0"
   },
   "keywords": [
     "gruntplugin",

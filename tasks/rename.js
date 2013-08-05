@@ -14,15 +14,16 @@ module.exports = function(grunt) {
 
   // rename files in a path
   grunt.registerMultiTask('rename', 'Rename files in a path', function() {
-
     var done    = this.async();
-    var helpers = require('grunt-lib-contrib').init(grunt);
     var options = this.options({
+      from: '',
+      to: '',
       process: function(src, callback) {
+        var dest = src.replace(options.from, options.to);
         if (callback) {
-          callback(src);
+          callback(dest);
         }
-        return src;
+        return dest;
       }
     });
 
