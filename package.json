@@ -7,6 +7,12 @@
     "name": "Jon Schlinkert",
     "url": "https://github.com/jonschlinkert"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jonschlinkert/grunt-refactor/blob/master/LICENSE-MIT"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/jonschlinkert/grunt-refactor.git"
@@ -14,12 +20,7 @@
   "bugs": {
     "url": "https://github.com/jonschlinkert/grunt-refactor/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jonschlinkert/grunt-refactor/blob/master/LICENSE-MIT"
-    }
-  ],
+  "main": "./tasks/refactor.js",
   "devDependencies": {
     "assemble": "~0.4.0",
     "assemble-less": "~0.4.8",
