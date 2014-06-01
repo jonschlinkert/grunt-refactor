@@ -120,7 +120,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 
 ## Credit
-Special thanks to [Erick Ruiz de Chavez](https://github.com/erickrdch) for creating [grunt-string-replace](https://github.com/erickrdch/grunt-replace). This isn't a fork of that project, because I'm using other tasks as well, but it might as well be because this project wouldn't exist without it. Please visit [grunt-string-replace](https://github.com/erickrdch/grunt-replace) and star it!
+Special thanks to [Erick Ruiz de Chavez](https://github.com/erickrdch) for creating [grunt-string-replace](https://github.com/erickrdch/grunt-string-replace). This isn't a fork of that project, because I'm using other tasks as well, but it might as well be because this project wouldn't exist without it. Please visit [grunt-string-replace](https://github.com/erickrdch/grunt-replace) and star it!
 
 
 ## License
