@@ -23,7 +23,7 @@
   "main": "./tasks/refactor.js",
   "devDependencies": {
     "assemble": "~0.4.0",
-    "assemble-less": "~0.4.8",
+    "assemble-less": "~0.7.0",
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0"
